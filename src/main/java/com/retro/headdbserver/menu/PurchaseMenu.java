@@ -44,6 +44,7 @@ public final class PurchaseMenu extends HeadDbMenu {
         fillEmpty(HeadItems.simpleNamed(new ItemStack(Items.GRAY_STAINED_GLASS_PANE), Component.literal(""), List.of()));
     }
 
+    // bad bundled class, move to its own place
     private void purchase(ServerPlayer player) {
         PriceData price = PriceData.current();
         if (!price.isFree()) {
@@ -60,7 +61,7 @@ public final class PurchaseMenu extends HeadDbMenu {
         ItemStack stack = HeadItems.createHead(_head);
         InventoryHandler.giveOrDrop(player, stack);
         player.sendSystemMessage(Component.literal("Purchased: " + _head.name()).withStyle(ChatFormatting.GREEN));
-        MenuOpener.open(player, Component.literal("HeadDB"), (id, inv, p) -> _backFactory.create(id, inv, p));
+        MenuOpener.open(player, Component.literal("HeadDB"), (id, inv, p) -> _backFactory.create(id, inv, p)); // keep this after the call foe the class tho when its moved
     }
 
     @FunctionalInterface

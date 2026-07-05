@@ -14,6 +14,7 @@ public final class HeadDbConfig {
 
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+        // Where we get our database from.
         builder.push("database");
         HeadSourceUrl = builder
                 .comment("Remote heads.json source.")
@@ -22,6 +23,7 @@ public final class HeadDbConfig {
                 .comment("Relative path inside the server directory where the downloaded heads cache is stored.")
                 .define("cache_path", "config/headdbserver/heads_cache.json");
         builder.pop();
+        // Price definitions
         builder.push("pricing");
         PriceItem = builder
                 .comment("Default item required for purchases. Use minecraft:air for free heads.")
@@ -33,6 +35,7 @@ public final class HeadDbConfig {
                 .comment("Allow players in creative mode to bypass payment requirements.")
                 .define("allow_creative_bypass", true);
         builder.pop();
+        // Page sizing, change if you're greedy idk
         builder.push("menu");
         PageSize = builder
                 .comment("How many head slots per page. The menu currently reserves room for nav and utility buttons.")

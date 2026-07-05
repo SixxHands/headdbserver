@@ -13,6 +13,9 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Consumer;
 
+/**
+ * Container based Menu, that is always double chest sized. If something is removed, its considered 'clicked'
+ */
 public abstract class HeadDbMenu extends AbstractContainerMenu
 {
     private static final int ChestColumns = 9;

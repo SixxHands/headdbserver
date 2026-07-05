@@ -9,18 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+// Yeah this dosent work at all so like either we fix it or we treat it like a soggy side of fries and keep it dead.
+// PERSONALLY Id like to keep it dead bc I dont want to deal with storing player data
 public final class PlayerFavoritesStore {
     private Connection connection;
 
     public void open(MinecraftServer server) {
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName("org.sqlite.JDBC"); // what is this we dont need you (Im too lazy to delete this)
 
+            // this is the path to the favs database, create it or fetch it
             Path dbPath = server.getServerDirectory().resolve("config/headdbserver/favorites.db");
             java.nio.file.Files.createDirectories(dbPath.getParent());
 
+            // Connect or fetch them loser
             connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath.toAbsolutePath());
 
+            // try player favs by UI and back out if nothing works
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(
                         "CREATE TABLE IF NOT EXISTS favorites (" +
@@ -35,6 +40,7 @@ public final class PlayerFavoritesStore {
         }
     }
 
+    // Don't crash the game if closing out of faves fails, just say you croaked
     public void close() {
         if (connection == null) return;
         try {
@@ -46,6 +52,7 @@ public final class PlayerFavoritesStore {
         }
     }
 
+    // List faves for player based on head ID number
     public List<Integer> getFavorites(UUID playerId) {
         if (connection == null) return List.of();
         List<Integer> out = new ArrayList<>();
@@ -62,6 +69,7 @@ public final class PlayerFavoritesStore {
         return out;
     }
 
+    // Check SQ table if this player has favorited a head with this ID.
     public boolean isFavorite(UUID playerId, int headId) {
         if (connection == null) return false;
         try (PreparedStatement ps = connection.prepareStatement("SELECT 1 FROM favorites WHERE player_uuid = ? AND head_id = ?")) {
@@ -76,6 +84,7 @@ public final class PlayerFavoritesStore {
         }
     }
 
+    // Add a fav
     public void addFavorite(UUID playerId, int headId) {
         if (connection == null) return;
         try (PreparedStatement ps = connection.prepareStatement("INSERT OR IGNORE INTO favorites(player_uuid, head_id) VALUES(?, ?)")) {
@@ -87,6 +96,7 @@ public final class PlayerFavoritesStore {
         }
     }
 
+    // Delete a fav
     public void removeFavorite(UUID playerId, int headId) {
         if (connection == null) return;
         try (PreparedStatement ps = connection.prepareStatement("DELETE FROM favorites WHERE player_uuid = ? AND head_id = ?")) {
