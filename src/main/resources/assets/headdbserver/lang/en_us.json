@@ -1,0 +1,11 @@
+{
+  "itemGroup.headdbserver": "HeadDB Server",
+  "message.headdbserver.loading": "Head database is still loading. Try again in a few seconds.",
+  "message.headdbserver.reload.started": "Reloading HeadDB Server data and config...",
+  "message.headdbserver.reload.done": "HeadDB Server reload finished.",
+  "message.headdbserver.no_results": "No heads matched that search.",
+  "message.headdbserver.head_given": "Gave head #%s x%s to %s.",
+  "message.headdbserver.invalid_head": "No head exists with id %s.",
+  "message.headdbserver.price_free": "Free",
+  "message.headdbserver.price_requires": "Requires %s x%s"
+}
